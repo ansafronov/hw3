@@ -4,9 +4,12 @@ class AdvertProperty:
     pass
 
 class Advert:
-    def __init__(self, json_dict: dict):
-        self.json_dict = json_dict
-        for item, item_value in json_dict.items():
+    def __init__(self, mapping: dict):
+
+
+        self.title = mapping['title']
+        self.price = mapping['price']
+        for item, item_value in mapping.items():
             setattr(self, item, self._parse(item_value))  
         
         self._check_price()
@@ -27,17 +30,20 @@ class Advert:
         else:
             self.price = 0
 
+    def __repr__(self):
+        return f'{self.title} | {self.price} ₽'
+
 if __name__ == '__main__':
-    # lesson_str = """{
-    # "title": "python", "price": 0,
-    # "location": {
-    #     "address": "город Москва, Лесная, 7",
-    #     "metro_stations": ["Белорусская"]
-    #     }
-    # }"""
-    # lesson = json.loads(lesson_str)
-    # lesson_ad = Advert(lesson)
-    # print(lesson_ad.location.address)
+    lesson_str = """{
+    "title": "python", "price": 0,
+    "location": {
+        "address": "город Москва, Лесная, 7",
+        "metro_stations": ["Белорусская"]
+        }
+    }"""
+    lesson = json.loads(lesson_str)
+    lesson_ad = Advert(lesson)
+    print(lesson_ad)
 
     # lesson_str = '{"title": "python", "price": -1}'
     # lesson = json.loads(lesson_str)
